@@ -33,7 +33,9 @@ def add_film(user_id):
     """
     POST /watchlist/<user_id>/add
 
-    Body: { "film_id": <id>, "public": true }  (public optional, defaults to true)
+    Body: { "film_id": "<uuid>", "public": true|false }
+      - film_id: required
+      - public: optional boolean controlling visibility; defaults to true (public)
     """
     data = request.get_json()
     if not data or "film_id" not in data:
@@ -48,6 +50,8 @@ def add_film(user_id):
         return jsonify(entry.to_dict()), 201
     except FilmNotFoundError as e:
         return jsonify({"error": str(e)}), 404
+    except AlreadyOnWatchlistError as e:
+        return jsonify({"error": str(e)}), 409
 
 
 @watchlist_bp.route("/<user_id>/remove", methods=["DELETE"])
