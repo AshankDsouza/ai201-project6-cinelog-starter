@@ -186,17 +186,19 @@ The `public` field is included in the `WatchlistEntry.to_dict()` response and st
 
 ![git log --oneline](screenshot.png)
 
+Output of `git log --oneline origin/main..HEAD` (feature branch commits only, excludes main branch history):
+
 ```
-ef8d685 feat: add public visibility toggle to add_to_watchlist endpoint with 409 on duplicate
-6843ee0 feat: add remove_from_watchlist with database-level UniqueConstraint on WatchlistEntry
-ec5a2d1 test: add tests for deduplication and remove_from_watchlist
-c6e93e2 fix: update WatchlistEntry film_id to UUID after main branch refactor
-94c760a fix: change watchlist sort order to date-added descending
-443cef5 docs: add pr-response.md with visibility and sort order decisions
+2d58d45 docs: add pr-response.md with visibility and sort order decisions
+df33490 test: add tests for deduplication and remove_from_watchlist
+2b64f57 feat: add public visibility toggle to add_to_watchlist endpoint with 409 on duplicate
+432bae1 feat: add remove_from_watchlist with database-level UniqueConstraint on WatchlistEntry
+e8bbecc fix: update WatchlistEntry film_id to UUID after main branch refactor
+95909f3 fix: change watchlist sort order to date-added descending
 57f8f36 test: add test for nonexistent film_id in add_to_watchlist
 10ff1f5 fix: add deduplication check to prevent duplicate watchlist entries
 2287694 fix: rename save_to_watchlist to add_to_watchlist per naming convention
 9130ef6 feat: add watchlist model and save_to_watchlist endpoint
 ```
 
-Linear history — no merge commits. All commits use conventional format. Rebased on `origin/main` (includes UUID refactor).
+**Note on `bbe206c Merge pull request #2`:** This merge commit is part of `main` branch history (a pre-existing `.gitignore` PR merged upstream before this feature branch was created). It is not a commit on `feature/watchlist` — running `git log --oneline origin/main..HEAD` shows only the 10 feature branch commits above, none of which are merge commits. The branch history is linear.
