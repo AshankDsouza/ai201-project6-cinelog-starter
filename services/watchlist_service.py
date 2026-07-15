@@ -24,7 +24,7 @@ class NotOnWatchlistError(Exception):
     pass
 
 
-def save_to_watchlist(user_id, film_id, public=True):
+def add_to_watchlist(user_id, film_id, public=True):
     """
     Add a film to a user's watchlist (i.e., save it to watch later).
 

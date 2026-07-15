@@ -8,7 +8,7 @@ import pytest
 from app import create_app, db
 from models import User, Film, WatchlistEntry
 from services.watchlist_service import (
-    save_to_watchlist,
+    add_to_watchlist,
     remove_from_watchlist,
     get_watchlist,
     FilmNotFoundError,
@@ -58,7 +58,7 @@ def test_add_to_watchlist_creates_entry(app, sample_user, sample_film):
     Adding a valid film should create a WatchlistEntry in the database.
     """
     with app.app_context():
-        entry = save_to_watchlist(user_id=sample_user, film_id=sample_film)
+        entry = add_to_watchlist(user_id=sample_user, film_id=sample_film)
 
         assert entry is not None
         assert entry.user_id == sample_user
