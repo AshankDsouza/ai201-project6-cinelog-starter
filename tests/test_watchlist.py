@@ -68,3 +68,17 @@ def test_add_to_watchlist_creates_entry(app, sample_user, sample_film):
             user_id=sample_user, film_id=sample_film
         ).first()
         assert in_db is not None
+
+
+# ── Nonexistent film ─────────────────────────────────────────────────────────
+
+def test_add_to_watchlist_nonexistent_film_raises(app, sample_user):
+    """
+    Adding a film_id that doesn't exist in the database should raise
+    FilmNotFoundError, not a database integrity error.
+    """
+    with app.app_context():
+        fake_film_id = "00000000-0000-0000-0000-000000000000"
+
+        with pytest.raises(FilmNotFoundError):
+            add_to_watchlist(user_id=sample_user, film_id=fake_film_id)
